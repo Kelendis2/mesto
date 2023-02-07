@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+   <head>
+      <title>Место</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="../mesto/pages/page.css" />
+   </head>
+   <body class="page">
+      <header class="header">
+         <img class="header__logo" alt="Логотип" src="./images/logo.svg">
+      </header>
+      <main class="content">
+         <section class="profile">
+            <img class="profile__avatar" alt="фото пользователя" src="./images/image.jpg">
+            <div class="profile__info">
+               <h1 class="profile__info-title">Жак-Ив Кусто</h1>
+               <button class="profile__edit-button"></button>
+               <p class="profile__info-subtitle">Исследователь океана</p>
+            </div>
+            <button class="profile__add-button"></button>
+         </section>
+         <section class="elements">
+            <ul class="element">
+               <li class="element__item">
+                  <img class="element__photo" alt="фото Карачаевск" src="./images/karachaevsk.jpg">
+                  <div class="element__photo-info">
+                     <h2 class="element__title">Карачаевск</h2>
+                     <div class="element__like"></div>
+                  </div>
+               </li>
+               <li class="element__item">
+                  <img class="element__photo" alt="гора эльбрус" src="./images/elbrus.jpg">
+                  <div class="element__photo-info">
+                     <h2 class="element__title">Гора Эльбрус</h2>
+                     <div class="element__like"></div>
+                  </div>
+               </li>
+               <li class="element__item">
+                  <img class="element__photo" alt="фото домбай" src="./images/domby.jpg">
+                  <div class="element__photo-info">
+                     <h2 class="element__title">Домбай</h2>
+                     <div class="element__like"></div>
+                  </div>
+               </li>
+               <li class="element__item">
+                  <img class="element__photo" alt="гора эльбрус" src="./images/elbrus.jpg">
+                  <div class="element__photo-info">
+                     <h2 class="element__title">Гора Эльбрус</h2>
+                     <div class="element__like"></div>
+                  </div>
+               </li>
+               <li class="element__item">
+                  <img class="element__photo" alt="фото домбай" src="./images/domby.jpg">
+                  <div class="element__photo-info">
+                     <h2 class="element__title">Домбай</h2>
+                     <div class="element__like"></div>
+                  </div>
+               </li>
+               <li class="element__item">
+                  <img class="element__photo" alt="фото Карачаевск" src="./images/karachaevsk.jpg">
+                  <div class="element__photo-info">
+                     <h2 class="element__title">Карачаево-Черкесская Республика</h2>
+                     <div class="element__like"> </div>
+                  </div>
+               </li>
+            </ul>
+         </section>
+      </main>
+      <footer class= "footer">
+         <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+      </footer>
+      <section class="popup">
+         <div class="form">
+            <button class="form__close-button"></button>
+            <h2 class="form__title">Редактировать профиль</h2>
+            <p class="form__fieled"><input class="form__input form__input_name" type="text" placeholder="Жак-Ив Кусто" name="name" id="name"></p>
+            <p class="form__fieled"><input class="form__input form__input_about" type="text" placeholder="Исследователь океана" name="about" id="about"></p>
+            <button class="form__button-save" type="submit" value="Сохранить">Сохранить</button>
+         </div>
+      </section>
+      <script src="./scripts/index.js"></script>
+   </body>
+</html>
