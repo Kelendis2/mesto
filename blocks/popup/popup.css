@@ -1,5 +1,5 @@
 .popup{
-  font-family: 'Inter', Arial, Auto;
+  font-family: 'Inter', Arial, sans-serif;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
   align-items: center;
