@@ -5,7 +5,7 @@
   padding: 0;
   max-width: 282px;
   border-radius: 20px;
-  overflow:hidden
+  overflow:hidden;
 }
 @media screen and (max-width: 890px){
   .element__item{
