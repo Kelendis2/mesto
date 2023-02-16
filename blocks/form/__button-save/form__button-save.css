@@ -10,7 +10,7 @@
   height: 50px;
   border-radius: 2px;
   border: none;
-  cursor: pointer
+  cursor: pointer;
 }
 .form__button-save:hover{
   opacity: 80%;
