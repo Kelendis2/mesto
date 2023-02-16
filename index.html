@@ -70,15 +70,17 @@
       <footer class= "footer">
          <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
       </footer>
-      <section class="popup">
-         <div class="form">
-            <button class="form__close-button"></button>
+      <div class="popup">
+        <div class="popup__container">
+          <button class="popup__close-button"></button>
+          <form class="form">
             <h2 class="form__title">Редактировать профиль</h2>
-            <p class="form__fieled"><input class="form__input form__input_name" type="text" placeholder="Жак-Ив Кусто" name="name" id="name"></p>
-            <p class="form__fieled"><input class="form__input form__input_about" type="text" placeholder="Исследователь океана" name="about" id="about"></p>
+            <input class="form__input form__input_type_name" type="text" name="name" placeholder="name" id="name">
+            <input class="form__input form__input_type_about" type="text" placeholder="about" name="about" id="about">
             <button class="form__button-save" type="submit" value="Сохранить">Сохранить</button>
-         </div>
-      </section>
+         </form>
+        </div>
+      </div>
       <script src="./scripts/index.js"></script>
    </body>
 </html>

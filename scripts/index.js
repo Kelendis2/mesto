@@ -1,38 +1,33 @@
 const editButton = document.querySelector ('.profile__edit-button');
 const popup = document.querySelector ('.popup');
-const closeButton = popup.querySelector ('.form__close-button');
-
-
+const closeButton = popup.querySelector ('.popup__close-button');
+const myName = document.querySelector('.profile__info-title');
+const aboutPerson = document.querySelector('.profile__info-subtitle');
+const myForm = document.querySelector('.form');
+const buttonSave = document.querySelector ('.form__button-save');
+const formName = document.querySelector('.form__input_type_name');
+const formAbout = document.querySelector('.form__input_type_about');
 const handleEditButtonClick = () =>  {
-  popup.classList.add('popup__opened');
+  popup.classList.add('popup_opened');
+  formName.value = myName.textContent;
+  formAbout.value = aboutPerson.textContent;
 }
-const handleCloseButtonClick = () =>  {
-  popup.classList.remove('popup__opened');
+const handleClose = () =>  {
+  popup.classList.remove('popup_opened');
 }
 
 editButton.addEventListener('click', handleEditButtonClick);
-closeButton.addEventListener('click', handleCloseButtonClick);
-
-let myName = document.querySelector('.profile__info-title');
-let aboutPerson = document.querySelector('.profile__info-subtitle');
-let myForm = document.querySelector('.form');
-let buttonSave = document.querySelector ('.form__button-save');
-let formName = document.querySelector('.form__input_name');
-let formAbout = document.querySelector('.form__input_about');
+closeButton.addEventListener('click', handleClose);
 
 function handleMyFormSubmit(evt) {
   evt.preventDefault();
   myName.textContent = formName.value;
   aboutPerson.textContent = formAbout.value;
-}
-buttonSave.addEventListener('click', handleMyFormSubmit);
+  handleClose ();
 
-const likeButton = document.querySelector ('.element__like');
-
-const togglelikeButton = () =>  {
-  likeButton.classList.toggle ('element__like_activ');
 }
-likeButton.addEventListener ('click', togglelikeButton);
+//buttonSave.addEventListener('click', handleMyFormSubmit);
+myForm.addEventListener('submit', handleMyFormSubmit);
 
 
 
