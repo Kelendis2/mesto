@@ -11,7 +11,7 @@
   line-height: 17px;
 
 }
-@media screen and (max-width: 890px){
+@media screen and (max-width: 920px){
   .form__input{
     width: 238px;
   }

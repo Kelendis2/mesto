@@ -15,7 +15,7 @@
 .form__button-save:hover{
   opacity: 80%;
 }
-@media screen and (max-width: 890px){
+@media screen and (max-width: 920px){
   .form__button-save{
     width: 238px;
     height: 46px;
