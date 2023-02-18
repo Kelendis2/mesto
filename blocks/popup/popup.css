@@ -8,6 +8,12 @@
   height: 100%;
   z-index: 2;
   position: fixed;
-  top: -45px;
+  top: 0;
   left: 0;
+}
+@media screen and (max-width: 920px){
+  .popup{
+    top: 0;
+    left: 0;
+  }
 }

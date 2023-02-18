@@ -9,8 +9,11 @@
 }
 @media screen and (max-width: 920px){
   .form__title{
+    padding-top: 25px;
+    margin-bottom: 70px;
     width: 238px;
     font-size: 18px;
     line-height: 21.78px;
   }
 }
+
