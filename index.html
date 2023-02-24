@@ -22,57 +22,15 @@
          </section>
          <section class="elements">
             <ul class="element">
-               <li class="element__item">
-                  <img class="element__photo" alt="фото Карачаевск" src="./images/karachaevsk.jpg">
-                  <div class="element__photo-info">
-                     <h2 class="element__title">Карачаевск</h2>
-                     <button class="element__like" type ="button"></button>
-                  </div>
-               </li>
-               <li class="element__item">
-                  <img class="element__photo" alt="гора эльбрус" src="./images/elbrus.jpg">
-                  <div class="element__photo-info">
-                     <h2 class="element__title">Гора Эльбрус</h2>
-                     <button class="element__like" type ="button"></button>
-                  </div>
-               </li>
-               <li class="element__item">
-                  <img class="element__photo" alt="фото домбай" src="./images/domby.jpg">
-                  <div class="element__photo-info">
-                     <h2 class="element__title">Домбай</h2>
-                     <button class="element__like" type ="button"></button>
-                  </div>
-               </li>
-               <li class="element__item">
-                  <img class="element__photo" alt="гора эльбрус" src="./images/elbrus.jpg">
-                  <div class="element__photo-info">
-                     <h2 class="element__title">Гора Эльбрус</h2>
-                     <button class="element__like" type ="button"></button>
-                  </div>
-               </li>
-               <li class="element__item">
-                  <img class="element__photo" alt="фото домбай" src="./images/domby.jpg">
-                  <div class="element__photo-info">
-                     <h2 class="element__title">Домбай</h2>
-                     <button class="element__like" type ="button"></button>
-                  </div>
-               </li>
-               <li class="element__item">
-                  <img class="element__photo" alt="фото Карачаевск" src="./images/karachaevsk.jpg">
-                  <div class="element__photo-info">
-                     <h2 class="element__title">Карачаево-Черкесская Республика</h2>
-                     <button class="element__like" type ="button"> </button>
-                  </div>
-               </li>
             </ul>
          </section>
       </main>
       <footer class= "footer">
          <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
       </footer>
-      <div class="popup">
+      <div class="popup popup__type_profile">
         <div class="popup__container">
-          <button class="popup__close-button" type ="button"></button>
+          <button class="popup__close-button popup__close-button_place_profile" type ="button"></button>
           <form class="form" name="UserInfo" method="post">
             <h2 class="form__title">Редактировать профиль</h2>
             <input class="form__input form__input_type_name" type="text" name="name" placeholder="name" id="name">
@@ -81,6 +39,34 @@
          </form>
         </div>
       </div>
+      <div class="popup popup__type_content">
+         <div class="popup__container">
+           <button class="popup__close-button popup__close-button_place_content" type ="button"></button>
+           <form class="form form__type_content" name="UserInfo" method="post">
+             <h2 class="form__title">Новое место</h2>
+             <input class="form__input form__input_type_title" type="text" name="title" placeholder="Название" id="title">
+             <input class="form__input form__input_type_link" type="text" placeholder="Ссылка на картинку" name="link" id="link">
+             <button class="form__button-save" type="submit" value="Сохранить">Сохранить</button>
+          </form>
+         </div>
+       </div>
+       <div class="popup popup__type_photo">
+        <div class="popup__container popup__container_type_photo">
+          <button class="popup__close-button popup__close-button_place_photo" type ="button"></button>
+          <img class = "popup__photo-zoom" src="./images/elbrus.jpg" alt = "Увеличенное фото">
+          <p class="popup__copyright"> Подпись под фото</p>
+        </div>
+      </div>
+      <template class="card-template">
+        <li class="element__item">
+          <img class="element__photo" alt="фото Карачаевск" src="./images/karachaevsk.jpg">
+          <button class="element__trash" type="button"></button>
+          <div class="element__photo-info">
+             <h2 class="element__title">Карачаевск</h2>
+             <button class="element__like" type ="button"></button>
+          </div>
+        </li>
+      </template>
       <script src="./scripts/index.js"></script>
    </body>
 </html>
