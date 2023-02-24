@@ -1,123 +1,95 @@
-const editButton = document.querySelector ('.profile__edit-button');
-const popupProfile = document.querySelector ('.popup_type_profile');
-const closeButtonProfilePopup = popupProfile.querySelector ('.popup__close-button_place_profile');
-const closeButtonContentPopup = document.querySelector ('.popup__close-button_place_content');
-const myName = document.querySelector('.profile__info-title');
-const aboutPerson = document.querySelector('.profile__info-subtitle');
-const myForm = document.querySelector('.form');
-const formName = document.querySelector('.form__input_type_name');
-const formAbout = document.querySelector('.form__input_type_about');
-const addButton = document.querySelector ('.profile__add-button');
-const popupContent = document.querySelector('.popup_type_content');
+const buttonEditProfile = document.querySelector('.profile__edit-button');
+const popupEditProfile = document.querySelector('.popup_type_profile');
+const buttonClosePopupEditProfile = popupEditProfile.querySelector('.popup__close-button_place_profile');
+const popupAddContentCard = document.querySelector('.popup_type_content');
+const buttonClosePopupAddCard = document.querySelector('.popup__close-button_place_content');
+const userName = document.querySelector('.profile__info-title');
+const userDescription = document.querySelector('.profile__info-subtitle');
+const formEditProfile = document.querySelector('.form');
+const formEditNameProfile = document.querySelector('.form__input_type_name');
+const formEditDescroptionProfile = document.querySelector('.form__input_type_about');
+const buttonAddContentCard = document.querySelector('.profile__add-button');
+const popupOpenZoomPhoto = document.querySelector('.popup_type_photo');
+const buttonClosePopupOpenZoomPhoto = document.querySelector('.popup__close-button_place_photo');
 const itemListWrapper = document.querySelector('.element');
-const popupPhoto = document.querySelector('.popup_type_photo');
-const closeButtonPhotoPopup = document.querySelector('.popup__close-button_place_photo');
-const contentCards = document.querySelector ('.element');
-const cardTemplate = document.querySelector ('.card-template');
-const formContent = document.querySelector('.form_type_content');
+const cardTemplate = document.querySelector('.card-template');
+const formAddCard = document.querySelector('.form_type_content');
 const inputCardPhoto = document.querySelector('form__input_type_link');
 const inputCardTitle = document.querySelector('form__input_type_title');
+const popupZoomImg = document.querySelector('.popup__photo-zoom');
+const popupZoomImgCopyright = popupOpenZoomPhoto.querySelector('.popup__copyright');
 const openPopup = (popup) => {
-  popup.classList.add ('popup_opened');
-  formName.value = myName.textContent;
-  formAbout.value = aboutPerson.textContent;
+	popup.classList.add('popup_opened');
 };
+
 const closePopup = (popup) => {
-  popup.classList.remove ('popup_opened');
+	popup.classList.remove('popup_opened');
 };
-const initialCards = [
-  {
-    title: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    title: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    title: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    title: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    title: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    title: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-const togglelikeButton = (evt) =>  {
-  evt.target.classList.toggle ('element__like_activ');
+
+const togglelikeButton = (evt) => {
+	evt.target.classList.toggle('element__like_activ');
 };
-const handleTrash = (evt) =>{
-  evt.target.closest('.element__item').remove();
-  evt.preventDefault();
-}
-const addContent = (data) =>{
-  const cardElement = cardTemplate.content.cloneNode(true);
-  const cardPhoto = cardElement.querySelector ('.element__photo');
-    cardPhoto.src = data.link;
-    cardPhoto.alt = data.title;
-    cardPhoto.addEventListener('click', (evt) =>{
-    evt.preventDefault();
-    const popupZoomImg = document.querySelector('.popup__photo-zoom')
-    popupZoomImg.src = cardPhoto.src;
-    const popupZoomImgCopyright = popupPhoto.querySelector('.popup__copyright');
-    popupZoomImgCopyright.textContent = cardTitle.textContent;
-    openPopup (popupPhoto)
-    });
-  const cardTitle = cardElement.querySelector ('.element__title');
-    cardTitle.textContent = data.title;
-  const buttonTrash = cardElement.querySelector ('.element__trash');
-  buttonTrash.addEventListener ('click', handleTrash)
-  const cardLike = cardElement.querySelector ('.element__like');
-  cardLike.addEventListener ('click', togglelikeButton);
-  return cardElement;
-}
-const renderCard = (element) =>{
-  contentCards.prepend (addContent (element));
+
+const handleTrash = (evt) => {
+	evt.target.closest('.element__item').remove();
+	evt.preventDefault();
 };
-function handleMyFormSubmit(evt) {
-  evt.preventDefault();
-  myName.textContent = formName.value;
-  aboutPerson.textContent = formAbout.value;
-  closePopup (popupProfile);
+
+const createCard = (data) => {
+	const cardElement = cardTemplate.content.cloneNode(true);
+	const cardPhoto = cardElement.querySelector('.element__photo');
+	cardPhoto.src = data.link;
+	cardPhoto.alt = data.title;
+	cardPhoto.addEventListener('click', (evt) => {
+		evt.preventDefault();
+		popupZoomImg.src = cardPhoto.src;
+		popupZoomImg.alt = cardTitle.textContent;
+		popupZoomImgCopyright.textContent = cardTitle.textContent;
+		openPopup(popupOpenZoomPhoto);
+	});
+	const cardTitle = cardElement.querySelector('.element__title');
+	cardTitle.textContent = data.title;
+	const buttonTrash = cardElement.querySelector('.element__trash');
+	buttonTrash.addEventListener('click', handleTrash);
+	const cardLike = cardElement.querySelector('.element__like');
+	cardLike.addEventListener('click', togglelikeButton);
+	return cardElement;
 };
-formContent.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  renderCard ({
-    title: evt.target.title.value,
-    link: evt.target.link.value,
-  })
-  closePopup (popupContent);
-  evt.target.link.value = '';
-  evt.target.title.value = '';
-})
+
+const renderCard = (element) => {
+	itemListWrapper.prepend(createCard(element));
+};
+
+function handleFormEditProfileSubmit(evt) {
+	evt.preventDefault();
+	userName.textContent = formEditNameProfile.value;
+	userDescription.textContent = formEditDescroptionProfile.value;
+	closePopup(popupEditProfile);
+};
+
+formAddCard.addEventListener('submit', (evt) => {
+	evt.preventDefault();
+	renderCard({
+		title: evt.target.title.value,
+		link: evt.target.link.value,
+	})
+	closePopup(popupAddContentCard);
+	evt.target.reset();
+});
 
 initialCards.forEach((element) => {
-  contentCards.append (addContent(element));
+	itemListWrapper.append(createCard(element));
 });
-editButton.addEventListener ('click', () => openPopup (popupProfile));
-closeButtonProfilePopup.addEventListener('click', () => closePopup (popupProfile));
-addButton.addEventListener ('click',() =>  openPopup (popupContent));
-closeButtonContentPopup.addEventListener('click',() =>  closePopup (popupContent));
-closeButtonPhotoPopup.addEventListener('click',() =>  closePopup (popupPhoto));
-myForm.addEventListener('submit', handleMyFormSubmit);
 
+buttonEditProfile.addEventListener('click', (evt) => {
+	evt.preventDefault();
+	formEditNameProfile.value = userName.textContent;
+	formEditDescroptionProfile.value = userDescription.textContent;
+	openPopup(popupEditProfile);
+});
 
-
-
-
-
-
-
-
-
-
-
-
+buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
+buttonAddContentCard.addEventListener('click', () => openPopup(popupAddContentCard));
+buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddContentCard));
+buttonClosePopupOpenZoomPhoto.addEventListener('click', () => closePopup(popupOpenZoomPhoto));
+formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
