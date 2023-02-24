@@ -10,12 +10,11 @@ const formAbout = document.querySelector('.form__input_type_about');
 const addButton = document.querySelector ('.profile__add-button');
 const popupContent = document.querySelector('.popup_type_content');
 const itemListWrapper = document.querySelector('.element');
-const addContentForm = document.querySelector('form_type_content');
 const popupPhoto = document.querySelector('.popup_type_photo');
 const closeButtonPhotoPopup = document.querySelector('.popup__close-button_place_photo');
 const contentCards = document.querySelector ('.element');
 const cardTemplate = document.querySelector ('.card-template');
-const formContent = document.querySelector('.form__type_content');
+const formContent = document.querySelector('.form_type_content');
 const inputCardPhoto = document.querySelector('form__input_type_link');
 const inputCardTitle = document.querySelector('form__input_type_title');
 const openPopup = (popup) => {
