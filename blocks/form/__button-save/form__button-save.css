@@ -1,5 +1,5 @@
 .form__button-save{
-  margin: 18px 36px 37px 36px;
+  margin: 18.34px 36px 37px 36px;
   padding: 0;
   background-color: black;
   color: white;
@@ -14,6 +14,11 @@
 }
 .form__button-save:hover{
   opacity: 80%;
+}
+.form__button-save:disabled{
+  border: 1px solid rgba(0, 0, 0, .2);
+  background-color: white;
+  color: rgba(0, 0, 0, .2);
 }
 @media screen and (max-width: 920px){
   .form__button-save{

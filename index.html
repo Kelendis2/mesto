@@ -31,21 +31,33 @@
       <div class="popup popup_type_profile">
         <div class="popup__container">
           <button class="popup__close-button popup__close-button_place_profile" type ="button"></button>
-          <form class="form" name="UserInfo" method="post">
+          <form class="form form__type_profile" name="UserInfo" method="post" novalidate >
             <h2 class="form__title">Редактировать профиль</h2>
-            <input class="form__input form__input_type_name" type="text" name="name" placeholder="name" id="name">
-            <input class="form__input form__input_type_about" type="text" placeholder="about" name="about" id="about">
-            <button class="form__button-save" type="submit" value="Сохранить">Сохранить</button>
+              <label class="form__field">
+                <input class="form__input form__input_type_name" type="text"  name="name" placeholder="Имя" id="name" minlength="2" maxlength="40" required >
+                <span class ="form__inpute-error" id="errorProfileName"> </span>
+                </label>
+                <label class="form__field">
+                  <input class="form__input form__input_type_about" type="text" placeholder="Описание профиля" name="about" id="about" minlength="2" maxlength="200"required>
+                <span class ="form__inpute-error" id="errorProfileAbout"> </span>
+                </label>
+                <button class="form__button-save" type="submit" value="Сохранить">Сохранить</button>
          </form>
         </div>
       </div>
       <div class="popup popup_type_content">
          <div class="popup__container">
            <button class="popup__close-button popup__close-button_place_content" type ="button"></button>
-           <form class="form form_type_content" name="UserInfo" method="post">
+           <form class="form form_type_content" name="UserInfo" method="post" novalidate >
              <h2 class="form__title">Новое место</h2>
-             <input class="form__input form__input_type_title" type="text" name="title" placeholder="Название" id="title">
-             <input class="form__input form__input_type_link" type="text" placeholder="Ссылка на картинку" name="link" id="link">
+              <label class="form__field">
+                <input class="form__input form__input_type_title" type="text" minlength="2" maxlength="30" name="title" placeholder="Название" id="title" required>
+                <span class ="form__inpute-error" id="errorContentTitle"> </span>
+              </label>
+              <label class="form__field">
+                <input class="form__input form__input_type_link" type="url" placeholder="Ссылка на картинку" name="link" id="link" required>
+                <span class ="form__inpute-error"  id="errorContentLink"> </span>
+              </label>
              <button class="form__button-save" type="submit" value="Сохранить">Сохранить</button>
           </form>
          </div>
@@ -67,6 +79,7 @@
           </div>
         </li>
       </template>
+      <script src="./scripts/validate.js"></script>
       <script src="./scripts/constants.js"></script>
       <script src="./scripts/index.js"></script>
    </body>
