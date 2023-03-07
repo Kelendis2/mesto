@@ -24,6 +24,20 @@ const openPopup = (popup) => {
 
 const closePopup = (popup) => {
 	popup.classList.remove('popup_opened');
+  popup.addEventListener('mousedown', closeByOverlay);
+  document.addEventListener('keydown', closeByEscBtn);
+};
+
+const closeByOverlay = (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
+  };
+};
+const closeByEscBtn = (evt) => {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
+    closePopup(activePopup);
+  };
 };
 
 const togglelikeButton = (evt) => {
@@ -93,3 +107,17 @@ buttonAddContentCard.addEventListener('click', () => openPopup(popupAddContentCa
 buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddContentCard));
 buttonClosePopupOpenZoomPhoto.addEventListener('click', () => closePopup(popupOpenZoomPhoto));
 formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
+
+const options = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  inputSectionSelector: '.form__field',
+  imputInvalidClass:'form__input_invalid',
+  submitButtonSelector: '.form__button-save',
+  inactiveButtonClass: 'form__button-save_inactive',
+  errorSelector: '.form__inpute-error',
+  errorClass: 'form__input-error_active',
+
+};
+
+enableValidation(options);

@@ -5,6 +5,7 @@
   justify-content: center;
   position: relative;
   min-width: 430px;
+  min-height: 330px;
 }
 @media screen and (max-width: 920px){
   .popup__container{
