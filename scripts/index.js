@@ -20,12 +20,12 @@ const popupZoomImg = document.querySelector('.popup__photo-zoom');
 const popupZoomImgCopyright = popupOpenZoomPhoto.querySelector('.popup__copyright');
 const openPopup = (popup) => {
 	popup.classList.add('popup_opened');
+  popup.addEventListener('mousedown', closeByOverlay);
+  document.addEventListener('keydown', closeByEscBtn);
 };
 
 const closePopup = (popup) => {
 	popup.classList.remove('popup_opened');
-  popup.addEventListener('mousedown', closeByOverlay);
-  document.addEventListener('keydown', closeByEscBtn);
 };
 
 const closeByOverlay = (evt) => {
@@ -53,16 +53,16 @@ const createCard = (data) => {
 	const cardElement = cardTemplate.content.cloneNode(true);
 	const cardPhoto = cardElement.querySelector('.element__photo');
 	cardPhoto.src = data.link;
-	cardPhoto.alt = data.title;
+	cardPhoto.alt = data.name;
 	cardPhoto.addEventListener('click', (evt) => {
 		evt.preventDefault();
-		popupZoomImg.src = cardPhoto.src;
-		popupZoomImg.alt = cardTitle.textContent;
+		popupZoomImg.src = data.link;
+		popupZoomImg.alt = data.name;
 		popupZoomImgCopyright.textContent = cardTitle.textContent;
 		openPopup(popupOpenZoomPhoto);
 	});
 	const cardTitle = cardElement.querySelector('.element__title');
-	cardTitle.textContent = data.title;
+	cardTitle.textContent = data.name;
 	const buttonTrash = cardElement.querySelector('.element__trash');
 	buttonTrash.addEventListener('click', handleTrash);
 	const cardLike = cardElement.querySelector('.element__like');
@@ -84,11 +84,13 @@ function handleFormEditProfileSubmit(evt) {
 formAddCard.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 	renderCard({
-		title: evt.target.title.value,
+		name: evt.target.name.value,
 		link: evt.target.link.value,
 	})
 	closePopup(popupAddContentCard);
 	evt.target.reset();
+  evt.submitter.classList.add('form__button-save_inactive')
+  evt.submitter.disabled = true;
 });
 
 initialCards.forEach((element) => {
@@ -106,7 +108,7 @@ buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEdit
 buttonAddContentCard.addEventListener('click', () => openPopup(popupAddContentCard));
 buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddContentCard));
 buttonClosePopupOpenZoomPhoto.addEventListener('click', () => closePopup(popupOpenZoomPhoto));
-formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
+formEditProfile.addEventListener('submit',handleFormEditProfileSubmit);
 
 const options = {
   formSelector: '.form',
