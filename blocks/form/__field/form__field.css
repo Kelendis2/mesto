@@ -1,6 +1,6 @@
 .form__field{
   max-width: 358px;
-  padding: 0 36px 0 36px;
+  padding: 13px 36px 0 36px;
 }
 @media screen and (max-width: 920px){
   .form__field{
