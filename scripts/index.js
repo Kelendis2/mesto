@@ -18,14 +18,15 @@ const itemListWrapper = document.querySelector('.element');
 const cardTemplate = document.querySelector('.card-template');
 const popupZoomImg = document.querySelector('.popup__photo-zoom');
 const popupZoomImgCopyright = popupOpenZoomPhoto.querySelector('.popup__copyright');
+const popups = document.querySelectorAll('.popup')
 const openPopup = (popup) => {
 	popup.classList.add('popup_opened');
-  popup.addEventListener('mousedown', closeByOverlay);
   document.addEventListener('keydown', closeByEscBtn);
-};
 
+};
 const closePopup = (popup) => {
 	popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscBtn);
 };
 
 const closeByOverlay = (evt) => {
@@ -58,7 +59,7 @@ const createCard = (data) => {
 		evt.preventDefault();
 		popupZoomImg.src = data.link;
 		popupZoomImg.alt = data.name;
-		popupZoomImgCopyright.textContent = cardTitle.textContent;
+		popupZoomImgCopyright.textContent = data.textContent;
 		openPopup(popupOpenZoomPhoto);
 	});
 	const cardTitle = cardElement.querySelector('.element__title');
@@ -103,6 +104,9 @@ buttonEditProfile.addEventListener('click', (evt) => {
 	formEditDescroptionProfile.value = userDescription.textContent;
 	openPopup(popupEditProfile);
 });
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', closeByOverlay);
+});
 
 buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
 buttonAddContentCard.addEventListener('click', () => openPopup(popupAddContentCard));
@@ -121,5 +125,4 @@ const options = {
   errorClass: 'form__input-error_active',
 
 };
-
 enableValidation(options);

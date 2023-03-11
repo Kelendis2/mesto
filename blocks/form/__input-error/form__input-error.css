@@ -1,5 +1,5 @@
 .form__inpute-error {
-  margin: -25px auto 0;
+  margin: -25px auto 13px;
   padding: 0;
   display: block;
   opacity: 0;
@@ -8,7 +8,7 @@
   font-weight: 400;
   line-height: 12px;
   width: 358px;
-  max-height: 30px;
+  min-height: 30px;
 }
 @media screen and (max-width: 920px){
   .form__inpute-error{

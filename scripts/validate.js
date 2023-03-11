@@ -1,19 +1,14 @@
-const hideError = (errorElement, errorClass) => {
+const hideError = (errorElement,imputElement, imputInvalidClass,errorClass) => {
+  imputElement.classList.remove(imputInvalidClass);
   errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 };
-const hideImputError = (imputElement, imputInvalidClass) => {
-  imputElement.classList.remove(imputInvalidClass);
-};
 
-const showError = (errorElement, message, errorClass) => {
+const showError = (errorElement,imputElement, message,imputInvalidClass, errorClass) => {
+  imputElement.classList.add(imputInvalidClass);
   errorElement.classList.add(errorClass);
   errorElement.textContent = message;
 };
-const showImputError = (imputElement, imputInvalidClass) => {
-  imputElement.classList.add(imputInvalidClass);
-};
-
 const enabelButton = (buttonSubmit, inactiveButtonClass) => {
   buttonSubmit.removeAttribute('disabled');
   buttonSubmit.classList.remove(inactiveButtonClass);
@@ -42,11 +37,9 @@ const toggleEroroState = (imputElement, options) => {
   const imputSectionElement = imputElement.closest(options.inputSectionSelector);
   const errorElement = imputSectionElement.querySelector(options.errorSelector);
   if (isValid) {
-    hideImputError (imputElement, options.imputInvalidClass);
-    hideError(errorElement, options.errorClass);
+    hideError(errorElement,imputElement,options.imputInvalidClass, options.errorClass);
   } else {
-    showImputError (imputElement, options.imputInvalidClass);
-    showError(errorElement, imputElement.validationMessage, options.errorClass);
+    showError(errorElement,imputElement, imputElement.validationMessage, options.imputInvalidClass,options.errorClass);
   }
 };
 
