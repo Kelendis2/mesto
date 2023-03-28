@@ -17,7 +17,6 @@ const popupOpenZoomPhoto = document.querySelector('.popup_type_photo');
 const buttonClosePopupOpenZoomPhoto = document.querySelector('.popup__close-button_place_photo');
 const itemListWrapper = document.querySelector('.element');
 const popups = document.querySelectorAll('.popup')
-const submitElement = document.querySelector('.form__button-save')
 const cardTemplate = document.querySelector('.card-template');
 const popupZoomImg = document.querySelector('.popup__photo-zoom');
 const popupZoomImgCopyright = popupOpenZoomPhoto.querySelector('.popup__copyright');
@@ -112,9 +111,9 @@ const options = {
   errorClass: 'form__input-error_active',
 };
 //Включение валидации
-const fromCardValidator = new FormValidator(options, formAddCard, submitElement);
+const fromCardValidator = new FormValidator(options, formAddCard);
 fromCardValidator.enableValidation();
 
-const fromProfileValidator = new FormValidator(options, formEditProfile, submitElement);
+const fromProfileValidator = new FormValidator(options, formEditProfile);
 fromProfileValidator.enableValidation();
 
