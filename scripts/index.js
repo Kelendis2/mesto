@@ -25,6 +25,7 @@ const inputCardTitle = document.querySelector('form__input_type_title');
 
 
 
+
 //открытие попапа
 const openPopup = (popup) => {
 	popup.classList.add('popup_opened');
@@ -70,21 +71,25 @@ formAddCard.addEventListener('submit', (evt) => {
 		link: evt.target.link.value,
 	}))
 	closePopup(popupAddContentCard);
-	evt.target.reset();
-  evt.submitter.classList.add('form__button-save_inactive')
-  evt.submitter.disabled = true;
 });
+
 
 
 //Создание карточки
 const renderCard = (element) => {
-  const cardElement = new Card (element,itemListWrapper,popupOpenZoomPhoto);
+  const cardElement = new Card (element,cardTemplate,handleCardClick);
   return cardElement.generateCard();
 };
 // Отрисовка карточек из массива
 initialCards.forEach((element) => {
-	itemListWrapper.append(renderCard(element));
+	itemListWrapper.append(renderCard(element,cardTemplate));
 });
+//Функция открытия попапа с фото
+function handleCardClick(cardElement) {
+  popupZoomImg.src = cardElement.querySelector('.element__photo').src
+  popupZoomImgCopyright.textContent = cardElement.querySelector('.element__title').textContent;
+  openPopup (popupOpenZoomPhoto);
+};
 
 
 //Слушатели
@@ -116,4 +121,5 @@ fromCardValidator.enableValidation();
 
 const fromProfileValidator = new FormValidator(options, formEditProfile);
 fromProfileValidator.enableValidation();
+
 

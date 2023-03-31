@@ -42,13 +42,13 @@ class FormValidator {
     }
   };
   _setEventListeners (form)  {
-    const buttonSubmit = form.querySelector(this._options.submitButtonSelector);
+    this._buttonSubmit = form.querySelector(this._options.submitButtonSelector);
     const imputs = Array.from(form.querySelectorAll(this._options.inputSelector));
-    this._toggleButtonState (imputs, buttonSubmit);
+    this._toggleButtonState (imputs, this._buttonSubmit);
     imputs.forEach((imputElement, i) => {
       imputElement.addEventListener('input', () => {
         this._toggleEroroState(imputElement);
-        this._toggleButtonState(imputs, buttonSubmit);
+        this._toggleButtonState(imputs, this._buttonSubmit);
       });
     });
 

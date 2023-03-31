@@ -1,56 +1,72 @@
-
-class Card {
-  static _template = document.querySelector('.card-template').content;
-
-  constructor (data,handleOpenPopup){
+export default class Card {
+  constructor (data,templateSelector,handleCardClick){
     this._link = data.link;
     this._name = data.name;
     this._alt = data.name;
-    this._handleOpenPopup = handleOpenPopup;
+    this._handleCardClick = handleCardClick;
+    this._templateSelector = templateSelector;
   }
-  //Создаем карточки
+  //Поиск и клонирование темплейта
+  _getTemplate() {
+    const cardElement = document
+      .querySelector('.card-template')
+      .content
+      .cloneNode(true).children[0];
+
+    return cardElement;
+  }
+  //Метод генерации карточки
 generateCard (){
-  this._viev = Card._template.cloneNode(true).children[0];
-  this._viev.querySelector('.element__title').textContent = this._name
-  this._viev.querySelector('.element__photo').src = this._link
-  this._viev.querySelector('.element__photo').alt = this._name
-  this._setEventListners(this._viev);
-  return this._viev;
+  this.element = this._getTemplate();
+  //Находим фото и записываем значения
+  this._cardImage = this.element.querySelector('.element__photo');
+  this._cardImage.src =  this._link;
+  this._cardImage.alt  = this._name;
+  //Находим подпись к фото и прописываем значение
+  this._title = this.element.querySelector('.element__title');
+  this._title.textContent = this._name;
+  //Находим кнопки
+  this._buttonTrash = this.element.querySelector('.element__trash');
+  this._likeButton = this.element.querySelector('.element__like');
+  //Устанавливаем слушатель
+  this._setEventListners(this.element);
+  //Возвращаем готовый элемент
+  return this.element;
 }
-handleOpenPopup() {
+/*handleOpenPopup() {
   const popupOpenZoomPhoto = document.querySelector('.popup_type_photo')
   const popupZoomImg = document.querySelector('.popup__photo-zoom')
   const popupZoomImgCopyright = document.querySelector('.popup__copyright')
   popupZoomImg.src = this._link;
   popupZoomImgCopyright.textContent = this._name;
   popupOpenZoomPhoto.classList.add('popup_opened');
-}
-
-//Слушатели
-_setEventListners(cardElement){
-  const buttonTrash = cardElement.querySelector('.element__trash');
-  buttonTrash.addEventListener ('click', ()=>{
-    this._handleButtonTrash(cardElement);
-  })
-
-  const cardLike = cardElement.querySelector('.element__like');
-  cardLike.addEventListener('click',()=>{
-    this._handleCardLike(cardLike);
-  });
-  const imgOpenPopup = cardElement.querySelector('.element__photo')
-  imgOpenPopup.addEventListener('click', () => {
-    this.handleOpenPopup(cardElement);
-  });
-}
-
+}*/
 //Подключение лайка
-_handleCardLike(cardLike){
-cardLike.classList.toggle('element__like_activ');
-}
+_handleButtonLike(){
+  this._likeButton.classList.toggle('element__like_activ');
+  };
 
-//Удаление карточки
-_handleButtonTrash(cardElement){
-cardElement.remove();
-}
-}
-export default Card;
+  //Удаление карточки
+  _handleButtonTrash(){
+    this.element.remove();
+  }
+  //Слушатели
+_setEventListners() {
+  this._buttonTrash.addEventListener ('click', ()=>{
+  this._handleButtonTrash();
+});
+
+this._likeButton.addEventListener('click',()=>{
+  this._handleButtonLike();
+});
+this._cardImage.addEventListener('click', () => {
+  this._handleCardClick(this.element);
+});
+};
+  };
+
+
+
+
+
+
