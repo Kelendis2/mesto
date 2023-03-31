@@ -6,16 +6,15 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
   }
-  //Поиск и клонирование темплейта
+//Поиск и клонирование темплейта
   _getTemplate() {
-    const cardElement = document
-      .querySelector('.card-template')
+    const cardElement = this._templateSelector
       .content
       .cloneNode(true).children[0];
 
     return cardElement;
   }
-  //Метод генерации карточки
+//Метод генерации карточки
 generateCard (){
   this.element = this._getTemplate();
   //Находим фото и записываем значения
@@ -33,24 +32,15 @@ generateCard (){
   //Возвращаем готовый элемент
   return this.element;
 }
-/*handleOpenPopup() {
-  const popupOpenZoomPhoto = document.querySelector('.popup_type_photo')
-  const popupZoomImg = document.querySelector('.popup__photo-zoom')
-  const popupZoomImgCopyright = document.querySelector('.popup__copyright')
-  popupZoomImg.src = this._link;
-  popupZoomImgCopyright.textContent = this._name;
-  popupOpenZoomPhoto.classList.add('popup_opened');
-}*/
 //Подключение лайка
 _handleButtonLike(){
   this._likeButton.classList.toggle('element__like_activ');
   };
-
-  //Удаление карточки
+//Удаление карточки
   _handleButtonTrash(){
     this.element.remove();
   }
-  //Слушатели
+//Слушатели
 _setEventListners() {
   this._buttonTrash.addEventListener ('click', ()=>{
   this._handleButtonTrash();
@@ -64,9 +54,3 @@ this._cardImage.addEventListener('click', () => {
 });
 };
   };
-
-
-
-
-
-

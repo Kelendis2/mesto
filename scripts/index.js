@@ -3,9 +3,7 @@ import FormValidator from './FormValidator.js'
 
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_type_profile');
-const buttonClosePopupEditProfile = popupEditProfile.querySelector('.popup__close-button_place_profile');
 const popupAddContentCard = document.querySelector('.popup_type_content');
-const buttonClosePopupAddCard = document.querySelector('.popup__close-button_place_content');
 const formEditProfile = document.querySelector('.form_type_profile');
 const formEditNameProfile = document.querySelector('.form__input_type_name');
 const formEditDescroptionProfile = document.querySelector('.form__input_type_about');
@@ -14,7 +12,6 @@ const userName = document.querySelector('.profile__info-title');
 const userDescription = document.querySelector('.profile__info-subtitle');
 const buttonAddContentCard = document.querySelector('.profile__add-button');
 const popupOpenZoomPhoto = document.querySelector('.popup_type_photo');
-const buttonClosePopupOpenZoomPhoto = document.querySelector('.popup__close-button_place_photo');
 const itemListWrapper = document.querySelector('.element');
 const popups = document.querySelectorAll('.popup')
 const cardTemplate = document.querySelector('.card-template');
@@ -22,8 +19,6 @@ const popupZoomImg = document.querySelector('.popup__photo-zoom');
 const popupZoomImgCopyright = popupOpenZoomPhoto.querySelector('.popup__copyright');
 const inputCardPhoto = document.querySelector('form__input_type_link');
 const inputCardTitle = document.querySelector('form__input_type_title');
-
-
 
 
 //открытие попапа
@@ -71,8 +66,8 @@ formAddCard.addEventListener('submit', (evt) => {
 		link: evt.target.link.value,
 	}))
 	closePopup(popupAddContentCard);
+  evt.target.reset();
 });
-
 
 
 //Создание карточки
@@ -87,6 +82,7 @@ initialCards.forEach((element) => {
 //Функция открытия попапа с фото
 function handleCardClick(cardElement) {
   popupZoomImg.src = cardElement.querySelector('.element__photo').src
+  popupZoomImg.alt = cardElement.querySelector('.element__title').textContent;
   popupZoomImgCopyright.textContent = cardElement.querySelector('.element__title').textContent;
   openPopup (popupOpenZoomPhoto);
 };
@@ -99,11 +95,19 @@ buttonEditProfile.addEventListener('click', (evt) => {
 	formEditDescroptionProfile.value = userDescription.textContent;
 	openPopup(popupEditProfile);
 });
-buttonClosePopupEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
 buttonAddContentCard.addEventListener('click', () => openPopup(popupAddContentCard));
-buttonClosePopupAddCard.addEventListener('click', () => closePopup(popupAddContentCard));
-buttonClosePopupOpenZoomPhoto.addEventListener('click', () => closePopup(popupOpenZoomPhoto));
+
 formEditProfile.addEventListener('submit',handleFormEditProfileSubmit);
+
+//Крестики закрытия попапа.
+const closeButtons = document.querySelectorAll('.popup__close-button');
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап
+  const popup = button.closest('.popup');
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener('click', () => closePopup(popup));
+});
+
 // Назначение объектов
 const options = {
   formSelector: '.form',
