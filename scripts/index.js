@@ -66,6 +66,8 @@ formAddCard.addEventListener('submit', (evt) => {
 		link: evt.target.link.value,
 	}))
 	closePopup(popupAddContentCard);
+  evt.submitter.disabled = 'true';
+  evt.submitter.classList.add(options.inactiveButtonClass);
   evt.target.reset();
 });
 

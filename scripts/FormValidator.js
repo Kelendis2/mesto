@@ -44,13 +44,13 @@ class FormValidator {
   _setEventListeners (form)  {
     const imputs = Array.from(form.querySelectorAll(this._options.inputSelector));
     this._toggleButtonState (imputs, this._submitElement);
+    this._disabledButton(this._submitElement);
     imputs.forEach((imputElement, i) => {
       imputElement.addEventListener('input', () => {
         this._toggleEroroState(imputElement);
         this._toggleButtonState(imputs, this._submitElement);
       });
     });
-
   };
 
   enableValidation ()  {
