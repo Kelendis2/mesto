@@ -8,11 +8,9 @@ export default class Card {
   }
 //Поиск и клонирование темплейта
   _getTemplate() {
-    const cardElement = this._templateSelector
+    return this._templateSelector
       .content
       .cloneNode(true).children[0];
-
-    return cardElement;
   }
 //Метод генерации карточки
 generateCard (){
@@ -40,6 +38,9 @@ _handleButtonLike(){
   _handleButtonTrash(){
     this.element.remove();
   }
+  _handleOpenPopup() {
+    this._handleCardClick(this._name, this._link);
+  }
 //Слушатели
 _setEventListners() {
   this._buttonTrash.addEventListener ('click', ()=>{
@@ -50,7 +51,7 @@ this._likeButton.addEventListener('click',()=>{
   this._handleButtonLike();
 });
 this._cardImage.addEventListener('click', () => {
-  this._handleCardClick(this.element);
+  this._handleOpenPopup(this.element);
 });
 };
   };
