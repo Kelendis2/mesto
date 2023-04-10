@@ -31,6 +31,12 @@ function handleCardClick(name, link) {
   popupImage.open(name, link);
   console.log (popupImage)
 }
+//Включение валидации
+const fromCardValidator = new FormValidator(options, formAddCard);
+fromCardValidator.enableValidation();
+
+const fromProfileValidator = new FormValidator(options, formEditProfile);
+fromProfileValidator.enableValidation();
 
 // Экземпляр класса профиля
 const userInfo = new UserInfo(
@@ -68,12 +74,7 @@ buttonAddContentCard.addEventListener('click', ()=>{
   fromCardValidator.cleanValidation();
 });
 
-//Включение валидации
-const fromCardValidator = new FormValidator(options, formAddCard);
-fromCardValidator.enableValidation();
 
-const fromProfileValidator = new FormValidator(options, formEditProfile);
-fromProfileValidator.enableValidation();
 
 
 

@@ -3,17 +3,17 @@ class FormValidator {
       this._form = form;
       this._options = options;
       this._submitElement = this._form.querySelector(this._options.submitButtonSelector);
-      this._imputs = Array.from(this._form.querySelectorAll(this._options.inputSelector));
+      this._inputs = Array.from(this._form.querySelectorAll(this._options.inputSelector));
   }
-  _hideError (errorElement,imputElement) {
-    imputElement.classList.remove(this._options.imputInvalidClass);
-    errorElement.classList.remove(this._options.errorClass);
-    errorElement.textContent = '';
+  _hideError (inputElement) {
+    inputElement.classList.remove(this._options.inputInvalidClass);
+    this._getErrorElement(inputElement).classList.remove(this._options.errorClass);
+    this._getErrorElement(inputElement).textContent = '';
   };
-  _showError (errorElement,imputElement) {
-    imputElement.classList.add(this._options.imputInvalidClass);
-    errorElement.classList.add(this._options.errorClass);
-    errorElement.textContent = imputElement.validationMessage;
+  _showError (errorElement,inputElement) {
+    inputElement.classList.add(this._options.inputInvalidClass);
+    this._getErrorElement(inputElement).classList.add(this._options.errorClass);
+    this._getErrorElement(inputElement).textContent = inputElement.validationMessage;
   };
   _enableButton () {
     this._submitElement.removeAttribute('disabled');
@@ -23,40 +23,43 @@ class FormValidator {
     this._submitElement.disabled = 'true';
     this._submitElement.classList.add(this._options.inactiveButtonClass);
   };
+  _getErrorElement(inputElement) {
+    return this._form.querySelector(`.${inputElement.id}-error`)
+  }
   _toggleButtonState () {
-    const formIsValid = this._imputs.every((imputElement) => imputElement.validity.valid);
+    const formIsValid = this._inputs.every((inputElement) => inputElement.validity.valid);
     if (formIsValid) {
       this._enableButton();
     } else {
       this._disabledButton();
     }
   };
-  _toggleErrorState (imputElement) {
-    const isValid = imputElement.validity.valid;
-    const imputSectionElement = imputElement.closest(this._options.inputSectionSelector);
-    const errorElement = imputSectionElement.querySelector(this._options.errorSelector);
+  _toggleErrorState (inputElement) {
+    const isValid = inputElement.validity.valid;
+    const inputSectionElement = inputElement.closest(this._options.inputSectionSelector);
+    const errorElement = inputSectionElement.querySelector(this._options.errorSelector);
     if (isValid) {
-      this._hideError(errorElement,imputElement);
+      this._hideError(errorElement,inputElement);
     }
     else {
-      this._showError(errorElement,imputElement);
+      this._showError(errorElement,inputElement);
     }
   };
+  cleanValidation() {
+    this._toggleButtonState();
+    this._inputs.forEach((inputElement) => {
+      this._hideError(inputElement);
+    });
+  }
   _setEventListeners (form)  {
     this._toggleButtonState ();
-    this._imputs.forEach((imputElement, i) => {
-      imputElement.addEventListener('input', () => {
-        this._toggleErrorState(imputElement);
+    this._inputs.forEach((inputElement, i) => {
+      inputElement.addEventListener('input', () => {
+        this._toggleErrorState(inputElement);
         this._toggleButtonState();
       });
     });
   };
-  cleanValidation() {
-    this._toggleButtonState();
-    this._imputs.forEach((inputElement) => {
-      this._hideError(errorElement,imputElement);
-    });
-  }
 
   enableValidation ()  {
     const form = this._form;
