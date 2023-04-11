@@ -1,4 +1,4 @@
-.form__inpute-error {
+.form__input-error {
   margin: -25px auto 13px;
   padding: 0;
   display: block;
@@ -11,7 +11,7 @@
   min-height: 30px;
 }
 @media screen and (max-width: 920px){
-  .form__inpute-error{
+  .form__input-error{
     width: 238px;
   }
 }

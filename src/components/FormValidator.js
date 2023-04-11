@@ -10,7 +10,7 @@ class FormValidator {
     this._getErrorElement(inputElement).classList.remove(this._options.errorClass);
     this._getErrorElement(inputElement).textContent = '';
   };
-  _showError (errorElement,inputElement) {
+  _showError (inputElement) {
     inputElement.classList.add(this._options.inputInvalidClass);
     this._getErrorElement(inputElement).classList.add(this._options.errorClass);
     this._getErrorElement(inputElement).textContent = inputElement.validationMessage;
@@ -24,7 +24,7 @@ class FormValidator {
     this._submitElement.classList.add(this._options.inactiveButtonClass);
   };
   _getErrorElement(inputElement) {
-    return this._form.querySelector(`.${inputElement.id}-error`)
+    return this._form.querySelector(`#${inputElement.id}-error`)
   }
   _toggleButtonState () {
     const formIsValid = this._inputs.every((inputElement) => inputElement.validity.valid);
@@ -36,13 +36,11 @@ class FormValidator {
   };
   _toggleErrorState (inputElement) {
     const isValid = inputElement.validity.valid;
-    const inputSectionElement = inputElement.closest(this._options.inputSectionSelector);
-    const errorElement = inputSectionElement.querySelector(this._options.errorSelector);
     if (isValid) {
-      this._hideError(errorElement,inputElement);
+      this._hideError(inputElement);
     }
     else {
-      this._showError(errorElement,inputElement);
+      this._showError(inputElement);
     }
   };
   cleanValidation() {
