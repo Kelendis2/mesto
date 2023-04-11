@@ -1,13 +1,10 @@
+import {initialCards,formEditProfile,formAddCard,cardTemplate,buttonEditProfile,buttonAddContentCard,options} from '../utils/constants.js'
 import  PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import Section from '../components/Section.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
-import formValidator from "../components/FormValidator.js";
-//Кнопки
-const buttonEditProfile = document.querySelector('.profile__edit-button');
-const buttonAddContentCard = document.querySelector('.profile__add-button');
 
 //Создание карточки
 const renderCard = (element) => {
@@ -29,7 +26,6 @@ popupImage.setEventListeners();
 
 function handleCardClick(name, link) {
   popupImage.open(name, link);
-  console.log (popupImage)
 }
 //Включение валидации
 const fromCardValidator = new FormValidator(options, formAddCard);
@@ -56,7 +52,6 @@ const userPopup = new PopupWithForm('.popup_type_profile',
 userPopup.setEventListeners();
 buttonEditProfile.addEventListener('click',()=>{
   userPopup.open();
-  console.log(userInfo);
   userPopup.setInputValues(userInfo.getUserInfo());
 });
 

@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -25,13 +25,16 @@ const initialCards = [
   }
 ];
 
-const formEditProfile = document.querySelector('.form_type_profile');
-const formAddCard = document.querySelector('.form_type_content');
-const cardTemplate = document.querySelector('.card-template');
+export const formEditProfile = document.querySelector('.form_type_profile');
+export const formAddCard = document.querySelector('.form_type_content');
+export const cardTemplate = document.querySelector('.card-template');
 
+//Кнопки
+export const buttonEditProfile = document.querySelector('.profile__edit-button');
+export const buttonAddContentCard = document.querySelector('.profile__add-button');
 
 // Назначение объектов
-const options = {
+export const options = {
   formSelector: '.form',
   inputSelector: '.form__input',
   inputSectionSelector: '.form__field',
