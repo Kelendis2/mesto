@@ -19,7 +19,7 @@ const cardSection = new Section({
     cardSection.addItem(renderCard(item));
   },
 });
-cardSection.renderItem();
+cardSection.rendersItem();
 
 // Создание экзепляра  попапа картинки и открытие его.
 const popupImage = new PopupWithImage('.popup_type_photo');
