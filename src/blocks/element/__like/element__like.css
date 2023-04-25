@@ -1,10 +1,11 @@
 .element__like{
-  margin-top: 7px;
+  margin-top: 0px;
   padding: 0;
   cursor: pointer;
   background-image: url(../../../images/heart.svg);
   background-repeat: no-repeat;
   width: 22px;
+  height: 19px;
   border: none;
   background-color: transparent;
 }

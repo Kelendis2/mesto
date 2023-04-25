@@ -4,7 +4,12 @@
   background-size:contain;
   background-repeat: no-repeat;
   border-radius: 200%;
+  z-index: 0;
 }
+.profile__avatar:hover{
+  opacity: 20%;
+}
+
 @media screen and (max-width: 920px){
   .profile__avatar{
     margin: 0 auto;

@@ -8,12 +8,13 @@
 
    <body class="page">
       <header class="header">
-         <img class="header__logo" alt="Логотип" src="<%=require('./images/logo.svg')%>">
+         <img class="header__logo" alt="Логотип" src="/images/logo.svg">
       </header>
 
       <main class="content">
          <section class="profile">
-            <img class="profile__avatar" alt="фото пользователя" src="<%=require('./images/image.jpg')%>">
+            <img class="profile__avatar" alt="фото пользователя" src="/images/image.jpg">
+            <img class="profile__pencil" alt="карандаш" src="<%=require('./images/pencil.png')%>">
             <div class="profile__info">
                <h1 class="profile__info-title">Жак-Ив Кусто</h1>
                <button class="profile__edit-button" type ="button" ></button>
@@ -68,6 +69,29 @@
          </div>
        </div>
 
+       <div class="popup popup_type_avatar">
+        <div class="popup__container popup__container_type_avatar">
+          <button class="popup__close-button popup__close-button_place_avatar" type ="button"></button>
+          <form class="form form_type_avatar" name="addAvatar" method="post" novalidate >
+            <h2 class="form__title">Обновить аватар</h2>
+             <label class="form__field">
+               <input class="form__input form__input_type_link" type="url" placeholder="Ссылка на картинку" name="Avatar-link" id="link" required>
+               <span class ="form__input-error"  id="Avatar-link-error"> </span>
+             </label>
+            <button class="form__button-save" id="contentSubmit" type="submit" value="Сохранить">Сохранить</button>
+         </form>
+        </div>
+      </div>
+
+      <div class="popup  popup_type_trash">
+        <div class="popup__container popup__container_type_trash">
+          <button class="popup__close-button popup__close-button_place_trash" type ="button"></button>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="form__button-save" id="contentSubmit" type="submit" value="Сохранить">Сохранить</button>
+        </div>
+      </div>
+
+
        <div class="popup popup_type_photo">
         <div class="popup__container popup__container_type_photo">
           <button class="popup__close-button popup__close-button_place_photo" type ="button"></button>
@@ -76,13 +100,18 @@
         </div>
       </div>
 
+
+
       <template class="card-template">
         <li class="element__item">
           <img class="element__photo" alt="фото Карачаевск" src="./images/karachaevsk.jpg">
           <button class="element__trash" type="button"></button>
           <div class="element__photo-info">
              <h2 class="element__title">Карачаевск</h2>
-             <button class="element__like" type ="button"></button>
+             <div class="element__like-wrapper">
+              <button class="element__like" type ="button"></button>
+             <span class="element__like-quantity">0</span>
+             </div>
           </div>
         </li>
       </template>

@@ -1,20 +1,16 @@
-# Проект: Место
+# Project: Location
 
-### Обзор
+### Review
 
 
-Проект социальной сети про места в России.
-Представляет из себя страничку пользователя с возможностью добавлять в виде карточек фото и названия интересных мест путешествий.
-Есть возможностьдобавлять и удалять карточки, ставить лайки.
-Есть возможность менять имя и описание профиля пользователя.
-В этом проекте я впервые пробовала себя в JS.
+A social network project about places in Russia. It is a user page with the ability to add photos and names of interesting places of travel in the form of cards. It is possible to add and remove cards, put likes. It is possible to change the name and description of the user profile. In this project, I tried myself in JS for the first time.
 
 _____________________________________________________________________________________________________
-- Инструменты и технологии испотльзованные в проекте.
-- HTML5,
-- CSS3,
-- JavaScript (ES6),
-- OOП,
-- Все поля форм валидируются.
+Tools and technologies used in the project:
+- HTML5;
+- CSS3;
+- JavaScript (ES6);
+- OOP;
+- All form fields are validated;
 
-Посмотреть проект можно тут https://kelendis2.github.io/mesto/
+You can view the project here https://kelendis2.github.io/mesto/
