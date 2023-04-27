@@ -24,14 +24,20 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+//Формы
 export const formEditProfile = document.querySelector('.form_type_profile');
 export const formAddCard = document.querySelector('.form_type_content');
+export const formAvatar = document.querySelector('.popup_type_avatar')
+
+//Теплейт
 export const cardTemplate = document.querySelector('.card-template');
+
 
 //Кнопки
 export const buttonEditProfile = document.querySelector('.profile__edit-button');
 export const buttonAddContentCard = document.querySelector('.profile__add-button');
+export const buttonAddAvatar = document.querySelector('.profile__button-avatar');
+
 
 // Назначение объектов
 export const options = {

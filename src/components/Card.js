@@ -3,6 +3,7 @@ export default class Card {
     this._link = data.link;
     this._name = data.name;
     this._alt = data.name;
+    this._likes = data.likes
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
   }
@@ -27,6 +28,8 @@ generateCard (){
   this._likeButton = this._element.querySelector('.element__like');
   //Устанавливаем слушатель
   this._setEventListners(this._element);
+  //Устанавливаем счетчик
+  this._setLikes();
   //Возвращаем готовый элемент
   return this._element;
 }
@@ -34,6 +37,14 @@ generateCard (){
 _handleButtonLike(){
   this._likeButton.classList.toggle('element__like_activ');
   };
+
+// Счетчик лайков
+_setLikes(){
+  const likeCountElement = this._element.querySelector('.element__like-quantity')
+  likeCountElement.textContent = this._likes.length;
+}
+
+
 //Удаление карточки
   _handleButtonTrash(){
     this._element.remove();
