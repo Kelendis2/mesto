@@ -1,4 +1,4 @@
-import {initialCards,formEditProfile,formAddCard,cardTemplate,buttonEditProfile,buttonAddContentCard,options,buttonAddAvatar,formAvatar} from '../utils/constants.js'
+import {formEditProfile,formAddCard,cardTemplate,buttonEditProfile,buttonAddContentCard,options,buttonAddAvatar,formAvatar} from '../utils/constants.js'
 import  PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithImage from '../components/PopupWithImage.js'
@@ -8,7 +8,9 @@ import FormValidator from '../components/FormValidator.js'
 import './index.css'
 import {api} from '../components/Api.js'
 import PopupWithConfirmation from '../components/PopupWithConformation.js'
+
 let userId
+
 // Экземпляр класса профиля
 const userInfo = new UserInfo(
   {
@@ -17,6 +19,13 @@ const userInfo = new UserInfo(
     profileAvatarSelector: '.profile__avatar'
   },
 );
+//Получение данных с сервера
+Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([promUser, promCard]) => {
+    userId = promUser._id;
+    userInfo.setUserInfo(promUser);
+    cardSection.rendersItem(promCard);
+  })
 
   // Отрисовка секции с карточками
   const cardSection = new Section({
@@ -25,19 +34,11 @@ const userInfo = new UserInfo(
       cardSection.addItem(createCard(item));
     },
   });
-//Получение данных с сервера
-Promise.all([api.getProfile(), api.getInitialCards()])
-  .then(([promUser, promCard]) => {
-    userId = promUser._id;
-    userInfo.setUserInfo(promUser);
-    cardSection.rendersItem(promCard);
-  })
-  .catch(console.log)
-
 
 // Экземпляр класса попапа профиля.
 const userPopup = new PopupWithForm('.popup_type_profile',
   {submitCallback: (values)=> {
+    userPopup.renderLoading(true, 'Сохранение...');
     api.editProfile(values)
     .then(res => {
       userInfo.setUserInfo(res)
@@ -51,9 +52,11 @@ buttonEditProfile.addEventListener('click',()=>{
   userPopup.open();
   userPopup.setInputValues(userInfo.getUserInfo());
 });
-// Экземпляр класса Аватара
+
+// Экземпляр класса попапа  Аватара
 const avatarPopup = new PopupWithForm('.popup_type_avatar',{
   submitCallback: (data)=> {
+    avatarPopup.renderLoading(true, 'Сохранение...');
     api.editAvatar(data)
     .then(res =>{
       userInfo.setUserInfo(res)
@@ -67,16 +70,13 @@ buttonAddAvatar.addEventListener('click',() =>{
   avatarPopup.open();
 })
 
-
 //Создание карточки
-
 const createCard = (element) => {
   const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick, handleToggleLike,userId);
   function handleCardClick(name, link) {
     popupImage.open(name, link);
   }
   function handleTrashClick(){
-    console.log(cardElement)
     popupConformation.openConfirmation(cardElement);
   }
    function handleToggleLike(){
@@ -85,30 +85,30 @@ const createCard = (element) => {
           cardElement.toggleLike(res)
         })
    }
-
   return cardElement.generateCard();
 };
 
 //Удаляем карточку
 const popupConformation = new PopupWithConfirmation('.popup_type_trash',{
   submitCallback: ({card}) =>{
+    popupConformation.renderLoading(true, 'Удаление...');
     api.deleteCard(card.cardId)
     .then(()=>{
       card.removeCard();
       popupConformation.close();
     })
+
   }
 })
 popupConformation.setEventListeners();
 
-
 //Экземпляр попапа создания карточки
 const cardPopup = new PopupWithForm('.popup_type_content',{ submitCallback: (data) => {
+  cardPopup.renderLoading(true, 'Сохранение...');
     api.addCard(data)
         .then((cardElement) => {
           cardSection.addItemPrepend(createCard(cardElement));
           cardPopup.close();
-          console.log(cardElement);
         })
   },
 });
@@ -123,8 +123,6 @@ buttonAddContentCard.addEventListener('click', ()=>{
 const popupImage = new PopupWithImage('.popup_type_photo');
 popupImage.setEventListeners();
 
-
-
 //Включение валидации
 const fromCardValidator = new FormValidator(options, formAddCard);
 fromCardValidator.enableValidation();
@@ -132,8 +130,8 @@ fromCardValidator.enableValidation();
 const fromProfileValidator = new FormValidator(options, formEditProfile);
 fromProfileValidator.enableValidation();
 
-/*const fromAvatarValidator = new FormValidator(options, formAvatar);
-fromAvatarValidator.enableValidation();*/
+//const fromAvatarValidator = new FormValidator(options, formAvatar);
+//fromAvatarValidator.enableValidation();
 
 
 

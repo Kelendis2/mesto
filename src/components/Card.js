@@ -35,16 +35,15 @@ generateCard (){
   //Находим лайки
   this._counterLikes = this._element.querySelector('.element__like-quantity');
   this._counterLikes.textContent = this._likesCounter;
-  if (this._idUserCard !== this._userId) {
-    this._buttonTrash.remove();
-  }
+
   //Устанавливаем слушатель
   this._setEventListners(this._element);
 
-  // Установка активного лайка по данным с сервера
+  // Установка активного лайка с сервера
   if (this.isLiked(this.likes)) {
     this._likeButton.classList.add('element__like_activ');
   }
+
   //Проверка пользователя для кнопки корзины
   if(this._ownerId !== this._userId) {
     this._buttonTrash.remove();
@@ -59,8 +58,10 @@ isLiked(likes) {
   })
 }
 toggleLike({ likes }) {
+  this.likes = likes;
   this._likeButton.classList.toggle('element__like_activ');
   this._counterLikes.textContent = likes.length;
+
 }
 
 //Удаление карточки

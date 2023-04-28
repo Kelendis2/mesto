@@ -26,6 +26,16 @@ _handleCloseOverlay (evt){
     this.close();
 }
 };
+  // Метод отображения загрузки
+  renderLoading(isLoading, loadingText) {
+    if (!this._buttonSubmit) return;
+    if (isLoading) {
+      this.defaultText = this._buttonSubmit.textContent;
+      this._buttonSubmit.textContent = loadingText;
+    } else {
+      this._buttonSubmit.textContent = this.defaultText;
+    }
+  }
 //Слушатели
 setEventListeners() {
   this._buttonClose.addEventListener('click', () => {
