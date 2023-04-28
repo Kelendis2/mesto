@@ -30,6 +30,17 @@ export default class Api {
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
  }
+ editAvatar({avatar}){
+  return fetch(`${this._baseUrl}/users/me/avatar `,{
+    method: "PATCH",
+    headers: this._headers,
+    body: JSON.stringify({
+      avatar
+    })
+  })
+  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
+  .catch(console.log)
+ }
  addCard({name,link}){
   return fetch(`${this._baseUrl}/cards`,{
     method: "POST",
@@ -50,7 +61,22 @@ export default class Api {
   })
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
-
+ }
+ deleteLike (){
+  return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
+    method: "DELETE",
+    headers: this._headers
+  })
+  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
+  .catch(console.log)
+ }
+ addLike(){
+  return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
+    method: "PUT",
+    headers: this._headers
+  })
+  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
+  .catch(console.log)
  }
 }
 export const api = new Api({

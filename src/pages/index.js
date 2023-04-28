@@ -39,7 +39,21 @@ buttonEditProfile.addEventListener('click',()=>{
   userPopup.open();
   userPopup.setInputValues(userInfo.getUserInfo());
 });
-
+// Экземпляр класса Аватара
+const avatarPopup = new PopupWithForm('.popup_type_avatar',{
+  submitCallback: (data)=> {
+    api.editAvatar(data)
+    .then(res =>{
+      UserInfo.setUserInfo(res)
+      avatarPopup.close();
+    })
+}
+});
+avatarPopup.setEventListeners();
+buttonAddAvatar.addEventListener('click',() =>{
+  //avatarPopup.fillInputs(userInfo.getUserInfo());
+  avatarPopup.open();
+})
 
 
 //Создание карточки
@@ -132,21 +146,6 @@ fromAvatarValidator.enableValidation();*/
 
 
 
-
-
-
-
- // Экземпляр класса Аватара
-const avatarPopup = new PopupWithForm('.popup_type_avatar',{
-  submitCallback: (values)=> {
-    userAvatar.setUserInfo(values);
-    userPopup.close();
-}
-});
-avatarPopup.setEventListeners();
-buttonAddAvatar.addEventListener('click',() =>{
-  avatarPopup.open();
-})
 
 
 
