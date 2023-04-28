@@ -71,13 +71,28 @@ buttonAddAvatar.addEventListener('click',() =>{
 //Создание карточки
 
 const createCard = (element) => {
-  const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick,userId);
+  const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick,handleLikeClick,userId);
   function handleCardClick(name, link) {
     popupImage.open(name, link);
   }
   function handleTrashClick(){
     console.log(cardElement)
     popupConformation.openConfirmation(cardElement);
+  }
+
+  function handleLikeClick(cardId){
+    if(cardElement.isLiked){
+      api.deleteLike(cardId)
+      .then(res => {
+      cardElement.setLikes(res.likes)
+    })
+    }
+    else{
+      api.addLike(cardId)
+      .then(res => {
+      cardElement.setLikes(res.likes)
+    })
+    }
   }
   return cardElement.generateCard();
 };

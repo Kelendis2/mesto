@@ -62,7 +62,7 @@ export default class Api {
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
  }
- deleteLike (){
+ deleteLike (cardId){
   return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
     method: "DELETE",
     headers: this._headers
@@ -70,7 +70,7 @@ export default class Api {
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
  }
- addLike(){
+ addLike(cardId){
   return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
     method: "PUT",
     headers: this._headers
