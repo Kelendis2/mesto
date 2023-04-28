@@ -1,16 +1,17 @@
 export default class Card {
-  constructor (data,templateSelector,handleCardClick,handleTrashClick,handleLikeClick,userId){
+  constructor (data,templateSelector,handleCardClick,handleTrashClick, handleToggleLike,userId){
     this._link = data.link;
     this._name = data.name;
     this._alt = data.name;
-    this._likes = data.likes;
+    this.likes = data.likes;
+    this._likesCounter = data.likes.length;
     this.cardId = data._id;
     this._userId = userId;
     this._ownerId = data.owner._id;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
     this._handleTrashClick = handleTrashClick;
-    this._handleLikeClick = handleLikeClick;
+    this._handleToggleLike =  handleToggleLike;
   }
 //Поиск и клонирование темплейта
   _getTemplate() {
@@ -31,12 +32,20 @@ generateCard (){
   //Находим кнопки
   this._buttonTrash = this._element.querySelector('.element__trash');
   this._likeButton = this._element.querySelector('.element__like');
+  //Находим лайки
+  this._counterLikes = this._element.querySelector('.element__like-quantity');
+  this._counterLikes.textContent = this._likesCounter;
+  if (this._idUserCard !== this._userId) {
+    this._buttonTrash.remove();
+  }
   //Устанавливаем слушатель
   this._setEventListners(this._element);
-  //Устанавливаем счетчик
-  this.setLikes(this._likes);
 
-  //Проверка пользователя
+  // Установка активного лайка по данным с сервера
+  if (this.isLiked(this.likes)) {
+    this._likeButton.classList.add('element__like_activ');
+  }
+  //Проверка пользователя для кнопки корзины
   if(this._ownerId !== this._userId) {
     this._buttonTrash.remove();
   }
@@ -44,28 +53,15 @@ generateCard (){
   //Возвращаем готовый элемент
   return this._element;
 }
-
-
-isLiked (){
-  return this._likes.find(user => user._id === this._userId)
+isLiked(likes) {
+  return likes.some((like) => {
+    return like._id === this._userId;
+  })
 }
-_handleAddLike (){
+toggleLike({ likes }) {
   this._likeButton.classList.toggle('element__like_activ');
+  this._counterLikes.textContent = likes.length;
 }
-// Счетчик лайков
-setLikes(newLikes){
-  //передаем новые лайки
-  this._likes = newLikes
-  //ищем спан с лайками
-  const likeCountElement = this._element.querySelector('.element__like-quantity')
-  //записываем количество лайков в спан
-  likeCountElement.textContent = this._likes.length;
-  //если есть красим сердечко
-  if(this.isLiked){
-    this._handleAddLike();
-  }
-}
-
 
 //Удаление карточки
 removeCard(){
@@ -82,7 +78,7 @@ _setEventListners() {
 });
 
 this._likeButton.addEventListener('click',()=>{
-  this._handleLikeClick(this.cardId);
+  this._handleToggleLike(this);
 });
 this._cardImage.addEventListener('click', () => {
   this._handleOpenPopup(this._element);

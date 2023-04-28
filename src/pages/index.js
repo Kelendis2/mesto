@@ -71,7 +71,7 @@ buttonAddAvatar.addEventListener('click',() =>{
 //Создание карточки
 
 const createCard = (element) => {
-  const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick,handleLikeClick,userId);
+  const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick, handleToggleLike,userId);
   function handleCardClick(name, link) {
     popupImage.open(name, link);
   }
@@ -79,21 +79,13 @@ const createCard = (element) => {
     console.log(cardElement)
     popupConformation.openConfirmation(cardElement);
   }
+   function handleToggleLike(){
+    api.toggleLike(cardElement.cardId, cardElement.isLiked(cardElement.likes))
+        .then(res => {
+          cardElement.toggleLike(res)
+        })
+   }
 
-  function handleLikeClick(cardId){
-    if(cardElement.isLiked){
-      api.deleteLike(cardId)
-      .then(res => {
-      cardElement.setLikes(res.likes)
-    })
-    }
-    else{
-      api.addLike(cardId)
-      .then(res => {
-      cardElement.setLikes(res.likes)
-    })
-    }
-  }
   return cardElement.generateCard();
 };
 
@@ -108,8 +100,6 @@ const popupConformation = new PopupWithConfirmation('.popup_type_trash',{
   }
 })
 popupConformation.setEventListeners();
-
-
 
 
 //Экземпляр попапа создания карточки

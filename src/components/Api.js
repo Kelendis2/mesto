@@ -62,22 +62,22 @@ export default class Api {
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
  }
- deleteLike (cardId){
-  return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
-    method: "DELETE",
-    headers: this._headers
-  })
-  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
- }
- addLike(cardId){
-  return fetch(`${this._baseUrl}/cards/${cardId}/likes`,{
-    method: "PUT",
-    headers: this._headers
-  })
-  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
- }
+
+toggleLike(cardId, isLiked) {
+  if (!isLiked) {
+    return fetch (`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+  } else {
+    return fetch (`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+  }
+}
+
+
 }
 export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co./v1/cohort-64',
