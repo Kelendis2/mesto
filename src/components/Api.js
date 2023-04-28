@@ -30,7 +30,7 @@ export default class Api {
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
  }
- addCard({name,about}){
+ addCard({name,link}){
   return fetch(`${this._baseUrl}/cards`,{
     method: "POST",
     headers: this._headers,
@@ -41,6 +41,16 @@ export default class Api {
   })
   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
   .catch(console.log)
+ }
+
+ deleteCard(cardId){
+  return fetch(`${this._baseUrl}/cards/${cardId}`,{
+    method: "DELETE",
+    headers: this._headers
+  })
+  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
+  .catch(console.log)
+
  }
 }
 export const api = new Api({

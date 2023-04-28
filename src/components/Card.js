@@ -1,11 +1,15 @@
 export default class Card {
-  constructor (data,templateSelector,handleCardClick){
+  constructor (data,templateSelector,handleCardClick,handleTrashClick){
     this._link = data.link;
     this._name = data.name;
     this._alt = data.name;
-    this._likes = data.likes
+    this._likes = data.likes;
+    this.cardId = data._id;
+    this._userId = data.userId;
+    this._ownerId = data.ownerId;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
+    this._handleTrashClick = handleTrashClick;
   }
 //Поиск и клонирование темплейта
   _getTemplate() {
@@ -30,6 +34,11 @@ generateCard (){
   this._setEventListners(this._element);
   //Устанавливаем счетчик
   this._setLikes();
+  //Проверка пользователя
+  if(this._ownerId !== this._userId) {
+    this._buttonTrash.remove();
+  }
+
   //Возвращаем готовый элемент
   return this._element;
 }
@@ -44,9 +53,8 @@ _setLikes(){
   likeCountElement.textContent = this._likes.length;
 }
 
-
 //Удаление карточки
-  _handleButtonTrash(){
+removeCard(){
     this._element.remove();
     this._element = null;
   }
@@ -56,7 +64,7 @@ _setLikes(){
 //Слушатели
 _setEventListners() {
   this._buttonTrash.addEventListener ('click', ()=>{
-  this._handleButtonTrash();
+  this._handleTrashClick();
 });
 
 this._likeButton.addEventListener('click',()=>{
