@@ -130,8 +130,8 @@ fromCardValidator.enableValidation();
 const fromProfileValidator = new FormValidator(options, formEditProfile);
 fromProfileValidator.enableValidation();
 
-//const fromAvatarValidator = new FormValidator(options, formAvatar);
-//fromAvatarValidator.enableValidation();
+const fromAvatarValidator = new FormValidator(options, formAvatar);
+fromAvatarValidator.enableValidation();
 
 
 
