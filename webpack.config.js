@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/pages/index.js',
+  devtool: 'eval-source-map',
   output: {
     filename: '[name].[contenthash].js',
     path: __dirname + '/build',
@@ -14,7 +15,7 @@ module.exports = {
       directory: path.join(__dirname, 'build'),
     },
     compress: true,
-    port: 9000,
+    port: 8080,
     open: true,
   },
   plugins: [

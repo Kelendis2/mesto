@@ -17,12 +17,24 @@ const userInfo = new UserInfo(
     profileAvatarSelector: '.profile__avatar'
   },
 );
-//Запрос данных пользователя с сервера
-api.getProfile()
-.then (res => {
-  userInfo.setUserInfo(res)
-  userId = res._id;
-})
+
+  // Отрисовка секции с карточками
+  const cardSection = new Section({
+    items: [],
+    renderer: (item) => {
+      cardSection.addItem(createCard(item));
+    },
+  });
+//Получение данных с сервера
+Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([promUser, promCard]) => {
+    userId = promUser._id;
+    userInfo.setUserInfo(promUser);
+    cardSection.rendersItem(promCard);
+  })
+  .catch(console.log)
+
+
 // Экземпляр класса попапа профиля.
 const userPopup = new PopupWithForm('.popup_type_profile',
   {submitCallback: (values)=> {
@@ -44,7 +56,7 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar',{
   submitCallback: (data)=> {
     api.editAvatar(data)
     .then(res =>{
-      UserInfo.setUserInfo(res)
+      userInfo.setUserInfo(res)
       avatarPopup.close();
     })
 }
@@ -59,7 +71,7 @@ buttonAddAvatar.addEventListener('click',() =>{
 //Создание карточки
 
 const createCard = (element) => {
-  const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick);
+  const cardElement = new Card (element,cardTemplate,handleCardClick,handleTrashClick,userId);
   function handleCardClick(name, link) {
     popupImage.open(name, link);
   }
@@ -83,41 +95,15 @@ const popupConformation = new PopupWithConfirmation('.popup_type_trash',{
 popupConformation.setEventListeners();
 
 
-// Отрисовка секции с карточками
-const cardSection = new Section({
-  items: [],
-  renderer: (data) => {
-    cardSection.addItem(createCard(data));
-  },
-});
 
-// Рендер карточек с сервера
-api.getInitialCards()
-.then (cardList => {
-  cardList.forEach(data => {
-    cardSection.addItem(createCard({
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      cardId: data._id,
-      ownerId: data.owner._id,
-      userId: userId
-    }));
-  });
-});
+
 //Экземпляр попапа создания карточки
 const cardPopup = new PopupWithForm('.popup_type_content',{ submitCallback: (data) => {
     api.addCard(data)
-        .then((data) => {
-          cardSection.addItemPrepend(createCard({
-            name: data.name,
-            link: data.link,
-            likes: data.likes,
-            cardId: data._id,
-            ownerId: data.owner._id,
-            userId: userId
-          }));
+        .then((cardElement) => {
+          cardSection.addItemPrepend(createCard(cardElement));
           cardPopup.close();
+          console.log(cardElement);
         })
   },
 });
