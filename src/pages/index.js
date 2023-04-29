@@ -26,6 +26,7 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     userInfo.setUserInfo(promUser);
     cardSection.rendersItem(promCard);
   })
+  .catch(err => console.log(err));
 
   // Отрисовка секции с карточками
   const cardSection = new Section({
@@ -43,7 +44,11 @@ const userPopup = new PopupWithForm('.popup_type_profile',
     .then(res => {
       userInfo.setUserInfo(res)
     })
-      userPopup.close();
+    .catch(err => console.log(err))
+    .finally(() => {
+      userPopup.renderLoading(false)
+      });
+      userPopup.close()
     }
   }
 );
@@ -60,8 +65,12 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar',{
     api.editAvatar(data)
     .then(res =>{
       userInfo.setUserInfo(res)
-      avatarPopup.close();
     })
+    .catch(err => console.log(err))
+    .finally(() => {
+      avatarPopup.renderLoading(false)
+    });
+    avatarPopup.close();
 }
 });
 avatarPopup.setEventListeners();
@@ -84,6 +93,7 @@ const createCard = (element) => {
         .then(res => {
           cardElement.toggleLike(res)
         })
+        .catch(err => console.log(err));
    }
   return cardElement.generateCard();
 };
@@ -95,9 +105,12 @@ const popupConformation = new PopupWithConfirmation('.popup_type_trash',{
     api.deleteCard(card.cardId)
     .then(()=>{
       card.removeCard();
-      popupConformation.close();
     })
-
+    .catch(err => console.log(err))
+    .finally(() => {
+      popupConformation.renderLoading(false)
+      });
+      popupConformation.close();
   }
 })
 popupConformation.setEventListeners();
@@ -108,8 +121,12 @@ const cardPopup = new PopupWithForm('.popup_type_content',{ submitCallback: (dat
     api.addCard(data)
         .then((cardElement) => {
           cardSection.addItemPrepend(createCard(cardElement));
-          cardPopup.close();
         })
+        .catch(err => console.log(err))
+        .finally(() => {
+          cardPopup.renderLoading(false)
+          });
+          cardPopup.close();
   },
 });
 cardPopup.setEventListeners();

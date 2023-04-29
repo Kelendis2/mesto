@@ -4,19 +4,23 @@ export default class Api {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+}
   getProfile(){
      return fetch(`${this._baseUrl}/users/me`,{
       headers: this._headers
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-    .catch(console.log)
+    .then(this._getResponseData)
   };
   getInitialCards(){
     return fetch(`${this._baseUrl}/cards`,{
      headers: this._headers
    })
-   .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-   .catch(console.log)
+   .then(this._getResponseData)
  };
  editProfile({name,about}){
   return fetch(`${this._baseUrl}/users/me `,{
@@ -27,8 +31,7 @@ export default class Api {
       about
     })
   })
-  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
+  .then(this._getResponseData)
  }
  editAvatar({avatar}){
   return fetch(`${this._baseUrl}/users/me/avatar `,{
@@ -38,8 +41,7 @@ export default class Api {
       avatar
     })
   })
-  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
+  .then(this._getResponseData)
  }
  addCard({name,link}){
   return fetch(`${this._baseUrl}/cards`,{
@@ -50,8 +52,7 @@ export default class Api {
       link: link
     })
   })
-  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
+  .then(this._getResponseData)
  }
 
  deleteCard(cardId){
@@ -59,8 +60,7 @@ export default class Api {
     method: "DELETE",
     headers: this._headers
   })
-  .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
+  .then(this._getResponseData)
  }
 
 toggleLike(cardId, isLiked) {
@@ -69,16 +69,13 @@ toggleLike(cardId, isLiked) {
       method: 'PUT',
       headers: this._headers
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
+    .then(this._getResponseData)
   } else {
     return fetch (`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Что-то где-то пошло не так... Код ошибки ${res.status}`))
-  .catch(console.log)
-
+    .then(this._getResponseData)
   }
 }
 

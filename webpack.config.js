@@ -15,7 +15,7 @@ module.exports = {
       directory: path.join(__dirname, 'build'),
     },
     compress: true,
-    port: 8081,
+    port: 8082,
     open: true,
   },
   plugins: [

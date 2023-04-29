@@ -37,7 +37,7 @@ generateCard (){
   this._counterLikes.textContent = this._likesCounter;
 
   //Устанавливаем слушатель
-  this._setEventListners(this._element);
+  this._setEventListners();
 
   // Установка активного лайка с сервера
   if (this.isLiked(this.likes)) {
@@ -82,7 +82,7 @@ this._likeButton.addEventListener('click',()=>{
   this._handleToggleLike(this);
 });
 this._cardImage.addEventListener('click', () => {
-  this._handleOpenPopup(this._element);
+  this._handleOpenPopup(this);
 });
 };
   };
