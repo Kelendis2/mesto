@@ -75,8 +75,8 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar',{
 });
 avatarPopup.setEventListeners();
 buttonAddAvatar.addEventListener('click',() =>{
-  //avatarPopup.fillInputs(userInfo.getUserInfo());
   avatarPopup.open();
+  fromAvatarValidator.cleanValidation();
 })
 
 //Создание карточки
