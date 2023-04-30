@@ -42,13 +42,13 @@ const userPopup = new PopupWithForm('.popup_type_profile',
     userPopup.renderLoading(true, 'Сохранение...');
     api.editProfile(values)
     .then(res => {
-      userInfo.setUserInfo(res)
+      userInfo.setUserInfo(res);
+      userPopup.close()
     })
     .catch(err => console.log(err))
     .finally(() => {
       userPopup.renderLoading(false)
       });
-      userPopup.close()
     }
   }
 );
@@ -64,13 +64,13 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar',{
     avatarPopup.renderLoading(true, 'Сохранение...');
     api.editAvatar(data)
     .then(res =>{
-      userInfo.setUserInfo(res)
+      userInfo.setUserInfo(res);
+      avatarPopup.close();
     })
     .catch(err => console.log(err))
     .finally(() => {
       avatarPopup.renderLoading(false)
     });
-    avatarPopup.close();
 }
 });
 avatarPopup.setEventListeners();
@@ -105,12 +105,13 @@ const popupConformation = new PopupWithConfirmation('.popup_type_trash',{
     api.deleteCard(card.cardId)
     .then(()=>{
       card.removeCard();
+      popupConformation.close();
     })
     .catch(err => console.log(err))
     .finally(() => {
       popupConformation.renderLoading(false)
       });
-      popupConformation.close();
+
   }
 })
 popupConformation.setEventListeners();
@@ -121,12 +122,13 @@ const cardPopup = new PopupWithForm('.popup_type_content',{ submitCallback: (dat
     api.addCard(data)
         .then((cardElement) => {
           cardSection.addItemPrepend(createCard(cardElement));
+          cardPopup.close();
         })
         .catch(err => console.log(err))
         .finally(() => {
           cardPopup.renderLoading(false)
           });
-          cardPopup.close();
+
   },
 });
 cardPopup.setEventListeners();
@@ -149,6 +151,7 @@ fromProfileValidator.enableValidation();
 
 const fromAvatarValidator = new FormValidator(options, formAvatar);
 fromAvatarValidator.enableValidation();
+
 
 
 

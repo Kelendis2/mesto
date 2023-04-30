@@ -79,10 +79,10 @@ _setEventListners() {
 });
 
 this._likeButton.addEventListener('click',()=>{
-  this._handleToggleLike(this);
+  this._handleToggleLike();
 });
 this._cardImage.addEventListener('click', () => {
-  this._handleOpenPopup(this);
+  this._handleOpenPopup();
 });
 };
   };

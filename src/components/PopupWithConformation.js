@@ -5,6 +5,7 @@ export default class PopupWithConfirmation extends Popup {
     super(popupSelector);
     this._submitCallback = submitCallback;
     this._buttonSubmit = this._popup.querySelector('.form__button-save');
+    this.defaultText = this._buttonSubmit.textContent;
   }
 
   // Открытие попапа с айди
@@ -12,15 +13,15 @@ export default class PopupWithConfirmation extends Popup {
     super.open();
     this.cardId = card.cardId;
     this.card = card;
+    this.defaultText = this._buttonSubmit.textContent;
   }
       // Метод отображения загрузки
       renderLoading(isLoading, loadingText) {
-
         if (isLoading) {
-          this.defaultText = this._buttonSubmit.textContent;
           this._buttonSubmit.textContent = loadingText;
         } else {
           this._buttonSubmit.textContent = this.defaultText;
+
         }
       }
 
